@@ -68,7 +68,7 @@ const FileUploader = createReactClass({
                     </ListGroupItem>
                 </ListGroup>
 
-
+                {/*Upload file modal*/}
                 <Modal show={self.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
                         <Modal.Title>Hey, we Got Your File!</Modal.Title>

@@ -1,5 +1,5 @@
 {
-  "name": "Rekeyed - Server",
+  "name": "rekeyed-server",
   "version": "1.0.0",
   "description": "Server code for managing file storage and interaction with the neo blockchain",
   "main": "server.js",
@@ -14,6 +14,7 @@
     "axios": "^0.18.0",
     "body-parser": "^1.18.2",
     "cors": "^2.8.4",
-    "express": "^4.16.3"
+    "express": "^4.16.3",
+    "python-shell": "^0.5.0"
   }
 }
