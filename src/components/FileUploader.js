@@ -47,6 +47,7 @@ const FileUploader = createReactClass({
     render() {
         const self = this;
 
+
         return (
             <div className="file-uploader">
                 <ListGroup>

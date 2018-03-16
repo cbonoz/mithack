@@ -16,12 +16,14 @@ const library = (function () {
             args: [fileContent, fileName]
         };
 
+        // TODO: implement and invoke python with data callback.
+
     }
 
     function decryptAndReturnFile(file) {
+        // TODO: implement and invoke python with data callback.
 
     }
-
 
     const getRandom = (items) => {
         return items[Math.floor(Math.random()*items.length)];
@@ -39,19 +41,12 @@ const library = (function () {
         return str;
     }
 
-
-    pyProg.stdout.on('data', function(data) {
-
-        console.log(data.toString());
-        res.write(data);
-        res.end('end');
-
-    });
-
     return {
         capitalize: capitalize,
         getRandom: getRandom,
-        formatDateTimeMs: formatDateTimeMs
+        formatDateTimeMs: formatDateTimeMs,
+        encryptAndSaveFile: encryptAndSaveFile,
+        decryptAndReturnFile: decryptAndReturnFile
     };
 
 })();
