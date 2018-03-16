@@ -12,6 +12,8 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const http = require('http');
+const neonjs = require('@cityofzion/neon-js');
+
 // const https = require('https');
 // const pg = require('pg');
 
@@ -20,6 +22,8 @@ const PORT = 9001;
 const app = express();
 const server = http.createServer(app);
 // const io = require('socket.io')(server, {origins: '*:*'});
+
+
 
 const rekeyed = require('./rekeyed');
 
