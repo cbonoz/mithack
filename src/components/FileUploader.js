@@ -27,7 +27,7 @@ const FileUploader = createReactClass({
 
     handleClose() {
         // TODO: Upload the current file with the current modal-set credentials.
-
+        this.setState({showModal: false});
 
     },
 
@@ -72,7 +72,7 @@ const FileUploader = createReactClass({
                 {/*Upload file modal*/}
                 <Modal show={self.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Hey, we Got Your File!</Modal.Title>
+                        <Modal.Title>Hey, We Got Your File!</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
                         {self.state.metadata && <p>Are you ready to submit: {self.state.metadata['name']}?</p>}

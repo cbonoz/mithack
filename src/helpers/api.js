@@ -12,7 +12,7 @@ const library = (function () {
     const getHeaders = () => {
         const token = localStorage.getItem("tok");
         return {
-            headers: { Authorization: "Bearer " + token }
+            headers: {Authorization: "Bearer " + token}
         };
     };
 
@@ -33,11 +33,34 @@ const library = (function () {
     //     return axios.get(url, getHeaders()).then(response => response.data);
     // }
 
-    function postFile(body) {
+    function postUploadFile(file, metadata) {
+        const url = `${BASE_URL}/api/upload`;
+
+        const formData = new FormData();
+        formData.append("metadata", metadata);
+        formData.append("file", file);
+
+        return axios.post(url, formData, {
+            headers: {
+                'Content-Type': 'multipart/form-data'
+            }
+        }).then(response => {
+            const data = response.data;
+            return data;
+        });
+    }
+
+    function getFileMetadatasForAddress(address) {
+        const url = `${BASE_URL}/api/files/${address}`;
+        return axios.get(url, getHeaders()).then(response => response.data);
+    }
+
+    function postGetFile(address, fileName) {
         const url = `${BASE_URL}/api/file`;
         return axios.post(url, {
-            body: body
-        }, getHeaders()).then(response => {
+            address: address,
+            fileName: fileName
+        }).then(response => {
             const data = response.data;
             return data;
         });
@@ -45,7 +68,9 @@ const library = (function () {
 
     return {
         BASE_URL: BASE_URL,
-        postFile: postFile
+        postUploadFile: postUploadFile,
+        postGetFile: postGetFile,
+        getFileMetadatasForAddress: getFileMetadatasForAddress
     }
 
 })();

@@ -4,7 +4,7 @@
 
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
+import {Button, ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const FileChain = createReactClass({
@@ -16,12 +16,22 @@ const FileChain = createReactClass({
             currentMetadata: null
         });
 
+        this.selectFile = this.selectFile.bind(this);
+    },
+
+    selectFile(metadata) {
+        console.log('selectFile', JSON.stringify(metadata));
+        this.setState({metadata: metadata, showModal: true});
+    },
+
+    handleClose() {
+        this.setState({showModal: false});
     },
 
     render() {
         const self = this;
-
         const metadata = self.state.currentMetadata;
+
         return (
             <div className="file-chain">
                 <ListGroup>
@@ -29,8 +39,10 @@ const FileChain = createReactClass({
                     <ListGroupItem>
 
                         {self.props.blockFiles.map((file) => {
-                            return <div className="file-block">
-                                {JSON.stringify(file)}
+                            return <div className="file-block" onClick={() => self.selectFile(file)}>
+                                {Object.keys(file).map((key) => {
+                                    return <li><b>{key}:</b>{file[key]}</li>
+                                })}
                             </div>
                         })}
 
@@ -38,19 +50,19 @@ const FileChain = createReactClass({
 
                 </ListGroup>
 
-                {/*Selected File info modal*/}
+                {/*Selected File metadata info modal*/}
                 <Modal show={self.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Hey, we Got Your File!</Modal.Title>
+                        <Modal.Title>File</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        {metadata && <p>{JSON.stringify(metadata)}</p>}
+                    < Modal.Body >
+                        < p > {metadata && JSON.stringify(metadata)}</p>
                         <hr/>
 
                         <h4>Sign with your Private Key below</h4>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button bsStyle="success" onClick={this.handleClose}>Upload</Button>
+                        <Button bsStyle="danger" onClick={this.handleClose}>Close</Button>
                     </Modal.Footer>
                 </Modal>
 

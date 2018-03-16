@@ -5,9 +5,10 @@
 // Helper utilities for the rekeyed server.
 const library = (function () {
 
+    // https://github.com/extrabacon/python-shell
     const PythonShell = require('python-shell');
 
-    function encryptAndSaveFile(fileContent, fileName) {
+    function encryptAndSaveFile(fileContent, fileName, cb) {
         const options = {
             mode: 'text',
             pythonPath: 'python3',
@@ -18,11 +19,18 @@ const library = (function () {
 
         // TODO: implement and invoke python with data callback.
 
+        if (cb) {
+            cb();
+        }
+
     }
 
-    function decryptAndReturnFile(file) {
+    function decryptAndReturnFile(file, cb) {
         // TODO: implement and invoke python with data callback.
 
+        if (cb) {
+            cb();
+        }
     }
 
     const getRandom = (items) => {
