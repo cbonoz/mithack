@@ -33,6 +33,10 @@ const library = (function () {
     //     return axios.get(url, getHeaders()).then(response => response.data);
     // }
 
+    function createTestMetaData() {
+
+    }
+
     function postUploadFile(file, metadata) {
         const url = `${BASE_URL}/api/upload`;
 
@@ -68,6 +72,7 @@ const library = (function () {
 
     return {
         BASE_URL: BASE_URL,
+        createTestMetaData: createTestMetaData,
         postUploadFile: postUploadFile,
         postGetFile: postGetFile,
         getFileMetadatasForAddress: getFileMetadatasForAddress
