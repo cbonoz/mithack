@@ -4,6 +4,14 @@ Rekeyed
 Document sharing and permission control for everyone.
 
 
+### Addressed Challenges
+
+- IPFS: Name resolver. See NameCoin, build a resolver to human readable names to IPFS entries.
+- NuCypher: Used for encrypting files on server arrival and secure sharing between different parties that visit the 'Rekeyed' website.
+- Neo blockchain ensures immutability and integrity of files by storing a hash of the file (and other metadata) on the Neo blockchain. This is a non-token application.
+- General Bitcoin Challenge Contender.
+
+
 ### Detail
 
 Store an encrypted file on IPFS, and then share it using NuCypher permission sdk.

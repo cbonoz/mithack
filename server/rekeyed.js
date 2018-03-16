@@ -6,35 +6,31 @@
 const library = (function () {
 
     // https://github.com/extrabacon/python-shell
+    const PYTHON_SCRIPT = "security.py";
     const PythonShell = require('python-shell');
 
-    function encryptAndSaveFile(fileContent, fileName, cb) {
-        const options = {
-            mode: 'text',
-            pythonPath: 'python3',
-            pythonOptions: ['-u'], // get print results in real-time
-            scriptPath: 'path/to/my/scripts',
-            args: [fileContent, fileName]
-        };
+    // TODO: replace with server python installation path.
+    const PYTHON_PATH = process.env['PYTHON_PATH'] || "/Users/cbuonocore/anaconda3/bin/python3.6";
+    PythonShell.defaultOptions = {
+        pythonPath: PYTHON_PATH
+    };
 
-        // TODO: implement and invoke python with data callback.
 
-        if (cb) {
-            cb();
-        }
-
+    function encryptAndSaveFile(fileContent, fileName, key, cb) {
+        PythonShell.run(PYTHON_SCRIPT, {
+            args: ['encrypt', fileContent, fileName, key]
+        }, cb)
     }
 
     function decryptAndReturnFile(file, cb) {
-        // TODO: implement and invoke python with data callback.
-
-        if (cb) {
-            cb();
-        }
+        // TODO: implement in security python script and invoke python with data callback.
+        PythonShell.run(PYTHON_SCRIPT, {
+            args: ['decrypt', file]
+        }, cb)
     }
 
     const getRandom = (items) => {
-        return items[Math.floor(Math.random()*items.length)];
+        return items[Math.floor(Math.random() * items.length)];
     };
 
     const formatDateTimeMs = (timeMs) => {

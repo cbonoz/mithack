@@ -23,23 +23,34 @@ const Home = createReactClass({
         this.setState({
             files: [],
             blockFiles: [],
+            timeOutScript: null,
         });
 
         this.getAccount = this.getAccount.bind(this);
 
-        this.getBlockFiles();
+        // this.getBlockFiles();
+        this.demoBlocks();
     },
 
     getAccount() {
         console.log('getAccount');
     },
 
+    // Demo file block generation.
+    demoBlocks() {
+        const self = this;
+        const myFunction = function() {
+            self.generateNextBlock();
+            const rand = Math.round(Math.random() * 2000) + 1000; // 1000-3000ms interval.
+            setTimeout(myFunction, rand);
+        };
+
+        myFunction();
+    },
+
     generateNextBlock() {
         const self = this;
-
-        const block = {
-
-        };
+        const block = api.createTestMetaData();
 
         const nextBlocks = self.state.blockFiles;
         nextBlocks.push(block);
