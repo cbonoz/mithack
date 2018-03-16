@@ -54,13 +54,14 @@ const Home = createReactClass({
         const self = this;
         return (
             <div className="home-page">
-                <img src={rekeyedLogo} className="centered header-logo"/>
+                {/*TODO: uncomment*/}
+                {/*<img src={rekeyedLogo} className="centered header-logo"/>*/}
 
                 <p className="header-text-h2">
-                    Document sharing and permission control for everyone.
+                    Document sharing and permission control for <b>Everyone.</b>
                 </p>
                 <p className="header-text-h3">
-                    No Username and password required.
+                    <b>No</b> Username or Password required.
                 </p>
                 <p>
                     <Button bsStyle="primary" onClick={() => self.getAccount()}>Create Account</Button>

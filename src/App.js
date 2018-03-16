@@ -1,6 +1,7 @@
 import React, {Component} from 'react';
 import logo from './logo.svg';
 import Home from './components/Home';
+import Footer from './components/Footer';
 import {Navbar, NavItem, NavDropdown, Nav, MenuItem} from 'react-bootstrap';
 import './App.css';
 
@@ -26,17 +27,21 @@ class App extends Component {
                     <Navbar.Collapse>
                         <Nav pullRight>
                             <NavItem eventKey={1} href="#">
-                                Upload a File
+                                Create an Account
                             </NavItem>
                             <NavItem eventKey={2} href="#">
+                                Upload a File
+                            </NavItem>
+                            <NavItem eventKey={3} href="#">
                                 About Us
                             </NavItem>
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
 
-
                 <Home/>
+
+                <Footer/>
             </div>
         );
     }

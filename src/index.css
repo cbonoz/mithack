@@ -68,6 +68,13 @@ body {
     background: #eee;
 }
 
+.neo-logo {
+    width: 60px;
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 5px;
+}
+
 .centered {
     margin: 0 auto;
     vertical-align: center;
@@ -78,4 +85,13 @@ body {
     margin-bottom: 20px;
     border-bottom: 1px solid black;
     width: 350px;
+}
+
+.footer {
+    margin-top: 100px;
+    padding-bottom: 50px;
+}
+
+.neo-green {
+
 }
