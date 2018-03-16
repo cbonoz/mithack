@@ -12,7 +12,6 @@ const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
 const http = require('http');
-const neonjs = require('@cityofzion/neon-js');
 
 // const https = require('https');
 // const pg = require('pg');
@@ -23,9 +22,10 @@ const app = express();
 const server = http.createServer(app);
 // const io = require('socket.io')(server, {origins: '*:*'});
 
-
-
+const neon = require('./neon');
 const rekeyed = require('./rekeyed');
+
+// neon.saveFileMetadata(args....).then()
 
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
