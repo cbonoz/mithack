@@ -10,28 +10,34 @@ const wallet = neonjs.wallet;
 const Neon = neonjs.default;
 const api = neonjs.api;
 
-const address = new wallet.Account(privateKey)
-
 const config = {
-  name: "TestNet",
-  // net: "http://localhost:20333",
-  // script: Neon.create.script({
-  //     scriptHash: '23ba2703c53263e8d6e522dc32203339dcd8eee9',
-  //     operation: 'store',
-  //     args: [Neon.u.reverseHex('cef0c0fdcfe7838eff6ff104f9cdec2922297537')]
-  // })
+    name: "PrivateNet",
+    net: "http://localhost:20333",
+    extra: {
+        neoscan: "http://localhost:4000/api/main_net"
+    },
+    script: Neon.create.script({
+        scriptHash: '23ba2703c53263e8d6e522dc32203339dcd8eee9',
+        operation: 'retrieve',
+        args: [Neon.u.reverseHex('cef0c0fdcfe7838eff6ff104f9cdec2922297537')]
+    }),
 };
 
-const newNet = new rpc.Network(config)
-Neon.add.network(newNet)
+const privateNet = new rpc.Network(config)
+Neon.add.network(privateNet)
 
-Neon.doInvoke(config).then(res => {
-  console.log(res)
-})
-.catch(err => console.log(err))
-// Neon.get.balance("TestNet", "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y")
-// .then(res => console.log(res))
-// .catch(err => console.log(err))
+const address = new wallet.Account(privateKey)
+
+api.neoscan.getBalance('PrivateNet', "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y")
+    .then(res => console.log(res))
+    //
+    // Neon.doInvoke(config).then(res => {
+    //   console.log(res)
+    // })
+    .catch(err => console.log(err))
+    // Neon.get.balance("TestNet", "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y")
+    // .then(res => console.log(res))
+    // .catch(err => console.log(err))
 
 
 const rekeyed = require('./rekeyed');
