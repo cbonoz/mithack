@@ -13,7 +13,6 @@ const library = (function () {
     };
 
     function saveFileMetadata(metadata, publickey, hash) {
-
         // This would return a promise for saving the metadata to the neo blockchain.
     }
 

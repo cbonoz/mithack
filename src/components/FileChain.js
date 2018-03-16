@@ -4,13 +4,33 @@
 
 import React from 'react';
 import createReactClass from 'create-react-class';
+import {ListGroup, ListGroupItem} from 'react-bootstrap';
 import PropTypes from 'prop-types';
 
 const FileChain = createReactClass({
+
+
+    componentWillMount() {
+
+    },
+
     render() {
+        const self = this;
         return (
-            <div>
-                <h1>FileChain</h1>
+            <div className="file-chain">
+                <ListGroup>
+                    <ListGroupItem bsStyle="success">Public File Chain</ListGroupItem>
+                    <ListGroupItem>
+
+                        {self.props.blockFiles.map((file) => {
+                            return <div className="file-block">
+                                {JSON.stringify(file)}
+                            </div>
+                        })}
+
+                    </ListGroupItem>
+
+                </ListGroup>
             </div>
         );
     }

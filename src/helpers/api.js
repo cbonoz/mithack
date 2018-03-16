@@ -4,29 +4,48 @@
 
 const library = (function () {
     const PORT = 9001;
-    const BASE_URL = `localhost:${PORT}`;
+    // TODO: replace with prod endpoint.
+    const BASE_URL = `http://localhost:${PORT}`;
 
-    const getRandom = (items) => {
-        return items[Math.floor(Math.random()*items.length)];
+    const axios = require('axios');
+
+    const getHeaders = () => {
+        const token = localStorage.getItem("tok");
+        return {
+            headers: { Authorization: "Bearer " + token }
+        };
     };
 
-    const formatDateTimeMs = (timeMs) => {
-        const date = new Date(parseInt(timeMs));
-        return `${date.toDateString()} ${date.toLocaleTimeString()}`;
-    };
+    // TODO: add support for deleting issues (or just mark deleted).
+    // function postDeleteIssue(userId, issueId) {
+    //     const url = `${BASE_URL}/api/issue/delete`;
+    //     return axios.post(url, {
+    //         userId: userId,
+    //         issueId: issueId
+    //     }, getHeaders()).then(response => {
+    //         const data = response.data;
+    //         return data;
+    //     });
+    // }
+    //
+    // function getToggleActiveForIssueId(issueId) {
+    //     const url = `${BASE_URL}/api/issue/toggle/${issueId}`;
+    //     return axios.get(url, getHeaders()).then(response => response.data);
+    // }
 
-    function capitalize(str) {
-        if (str) {
-            return str.charAt(0).toUpperCase() + str.slice(1);
-        }
-        return str;
+    function postFile(body) {
+        const url = `${BASE_URL}/api/file`;
+        return axios.post(url, {
+            body: body
+        }, getHeaders()).then(response => {
+            const data = response.data;
+            return data;
+        });
     }
 
     return {
         BASE_URL: BASE_URL,
-        capitalize: capitalize,
-        getRandom: getRandom,
-        formatDateTimeMs: formatDateTimeMs
+        postFile: postFile
     }
 
 })();
