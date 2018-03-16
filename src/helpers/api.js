@@ -9,6 +9,13 @@ const library = (function () {
 
     const axios = require('axios');
 
+    const getHeaders = () => {
+        const token = localStorage.getItem("tok");
+        return {
+            headers: { Authorization: "Bearer " + token }
+        };
+    };
+
     // TODO: add support for deleting issues (or just mark deleted).
     // function postDeleteIssue(userId, issueId) {
     //     const url = `${BASE_URL}/api/issue/delete`;

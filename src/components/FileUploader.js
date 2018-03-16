@@ -5,6 +5,7 @@
 import React from 'react';
 import createReactClass from 'create-react-class';
 import {FilePond, File} from 'react-filepond';
+import {Button, Modal, ListGroup, ListGroupItem} from 'react-bootstrap';
 import api from '../helpers/api';
 import PropTypes from 'prop-types';
 
@@ -20,7 +21,8 @@ const FileUploader = createReactClass({
             fieldName: null
         });
 
-        this.handleClose = this.handleClose.bind(this);
+        // this.handleClose = this.handleClose.bind(this);
+        // this.handleProcessing = this.handleProcessing.bind(this)
     },
 
     handleClose() {
@@ -36,8 +38,9 @@ const FileUploader = createReactClass({
 
     // handle file upload.
     handleProcessing(fieldName, currentFile, metadata, load, error, progress, abort) {
-        console.log(fieldName, currentFile, metadata, load, error, progress, abort);
-        this.setState({showModal: true, fieldName: fieldName, currentFile: file, metadata: metadata});
+        console.log(fieldName, currentFile);//, metadata, load, error, progress, abort);
+        console.log(JSON.stringify(metadata));
+        this.setState({showModal: true, fieldName: fieldName, currentFile: currentFile, metadata: metadata});
         // Send the file binary.
     },
 
@@ -45,36 +48,39 @@ const FileUploader = createReactClass({
         const self = this;
 
         return (
-            <div>
-                <h1>Upload your File</h1>
+            <div className="file-uploader">
+                <ListGroup>
+                    <ListGroupItem bsStyle="info">Upload your File</ListGroupItem>
+                    <ListGroupItem>
 
+                        <FilePond allowMultiple={true}
+                                  maxFiles={3}
+                                  ref={ref => this.pond = ref}
+                                  server={{process: this.handleProcessing.bind(this)}}
+                                  oninit={() => this.handleInit()}>
 
-                <FilePond allowMultiple={true}
-                          maxFiles={3}
-                          ref={ref => this.pond = ref}
-                          server={{ process: this.handleProcessing.bind(this) }}
-                          oninit={() => this.handleInit()}>
+                            {/*// Set current files using the <File/> component*/}
+                            {this.state.files.map(file => (
+                                <File key={file} source={file}/>
+                            ))}
 
-                    {/*// Set current files using the <File/> component*/}
-                    {this.state.files.map(file => (
-                        <File key={file} source={file} />
-                    ))}
-
-                </FilePond>
+                        </FilePond>
+                    </ListGroupItem>
+                </ListGroup>
 
 
                 <Modal show={self.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>Upload Your File</Modal.Title>
+                        <Modal.Title>Hey, we Got Your File!</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        <h4>Enter your Credentials</h4>
-                        <p>
-                            Duis mollis, est non commodo luctus, nisi erat porttitor ligula.
-                        </p>
+                        {self.state.metadata && <p>Are you ready to submit: {self.state.metadata['name']}?</p>}
+                        <hr/>
+
+                        <h4>Sign with your Private Key below</h4>
                     </Modal.Body>
                     <Modal.Footer>
-                        <Button onClick={this.handleClose}>Upload</Button>
+                        <Button bsStyle="success" onClick={this.handleClose}>Upload</Button>
                     </Modal.Footer>
                 </Modal>
 

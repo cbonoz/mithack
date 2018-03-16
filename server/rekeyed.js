@@ -5,6 +5,24 @@
 // Helper utilities for the rekeyed server.
 const library = (function () {
 
+    const PythonShell = require('python-shell');
+
+    function encryptAndSaveFile(fileContent, fileName) {
+        const options = {
+            mode: 'text',
+            pythonPath: 'python3',
+            pythonOptions: ['-u'], // get print results in real-time
+            scriptPath: 'path/to/my/scripts',
+            args: [fileContent, fileName]
+        };
+
+    }
+
+    function decryptAndReturnFile(file) {
+
+    }
+
+
     const getRandom = (items) => {
         return items[Math.floor(Math.random()*items.length)];
     };
@@ -20,6 +38,15 @@ const library = (function () {
         }
         return str;
     }
+
+
+    pyProg.stdout.on('data', function(data) {
+
+        console.log(data.toString());
+        res.write(data);
+        res.end('end');
+
+    });
 
     return {
         capitalize: capitalize,

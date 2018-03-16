@@ -4,6 +4,9 @@ import Home from './components/Home';
 import {Navbar, NavItem, NavDropdown, Nav, MenuItem} from 'react-bootstrap';
 import './App.css';
 
+// import rekeyedLogo from './assets/rekeyed_invert.png';
+import rekeyedLogo from './assets/rekeyed_cropped.png';
+
 class App extends Component {
 
     render() {
@@ -11,10 +14,12 @@ class App extends Component {
 
         return (
             <div className="App">
-                <Navbar inverse collapseOnSelect>
+
+                <Navbar collapseOnSelect>
                     <Navbar.Header>
                         <Navbar.Brand>
-                            <a href="#brand">Rekeyed</a>
+                            {/*<a href="#brand">Rekeyed</a>*/}
+                            <img src={rekeyedLogo} className="header-bar-logo"/>
                         </Navbar.Brand>
                         <Navbar.Toggle />
                     </Navbar.Header>
@@ -29,6 +34,8 @@ class App extends Component {
                         </Nav>
                     </Navbar.Collapse>
                 </Navbar>
+
+
                 <Home/>
             </div>
         );
