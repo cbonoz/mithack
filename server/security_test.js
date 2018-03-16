@@ -10,7 +10,7 @@ const fileBytes = toBytes(fileContent);
 
 
 const metadata = '{"json": "data"}';
-const fileName = "address_filename.txt";
+const fileName = "uploads/address_filename.txt";
 const key = null;
 
 
