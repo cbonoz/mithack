@@ -32,17 +32,22 @@ def encrypt_and_save(file_content, filename, public_key):
 
 def decrypt_and_return(fileName, private_key, public_key):
     # Decrypt data with Alice's private key.
-    with open(fileName, 'rb') as f:
-        ciphertext = f.read()
-        cleartext = pre.decrypt(capsule, private_key, ciphertext, alices_public_key)
-        print(cleartext)
+    try:
+        with open(fileName, 'rb') as f:
+            ciphertext = f.read()
+            cleartext = pre.decrypt(capsule, private_key, ciphertext, alices_public_key)
+            print(cleartext)
+    except Exception as e:
+        print(e)
 
+# Retrieve the parameters from the subprocess call
 argv = sys.argv[1:]
 command = argv[0]
 
-# TODO: add other security commands and error checking.
 if command == 'encrypt':
     encrypt_and_save(argv[1], argv[2], argv[3])
+elif command == 'decrypt':
+    decrypt_and_return(argv[1], argv[2], argv[3])
 else:
-    print('undefined')
+    print('command undefined')
 
