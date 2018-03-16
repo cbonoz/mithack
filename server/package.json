@@ -9,6 +9,10 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@cityofzion/neon-js": "^3.4.3"
+    "@cityofzion/neon-js": "^3.4.3",
+    "axios": "^0.18.0",
+    "body-parser": "^1.18.2",
+    "cors": "^2.8.4",
+    "express": "^4.16.3"
   }
 }
