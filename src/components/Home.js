@@ -9,6 +9,7 @@ import FileUploader from './FileUploader';
 import createReactClass from 'create-react-class';
 import {Jumbotron, Button, Grid, Row, Col} from 'react-bootstrap';
 
+import rekeyedLogo from '../assets/rekeyed_invert.png';
 
 
 import api from '../helpers/api';
@@ -28,22 +29,22 @@ const Home = createReactClass({
         return (
             <div className="home-page">
 
-                    <h1>Rekeyed</h1>
-                    <p>
-                        Document sharing and permission control for everyone.
-                    </p>
-                    <p>
-                        No Username and password required.
-                    </p>
-                    <p><Button bsStyle="primary">Get Started</Button></p>
+                {/*<h1>Rekeyed</h1>*/}
+                <p>
+                    Document sharing and permission control for everyone.
+                </p>
+                <p>
+                    No Username and password required.
+                </p>
+                <p><Button bsStyle="primary">Get Started</Button></p>
 
                 <Grid>
                     <Row className="show-grid">
                         <Col xs={12} md={6}>
-                            <FileUploader/>
+                            {/*<FileUploader/>*/}
                         </Col>
                         <Col xs={12} md={6}>
-                            <FileChain/>
+                            {/*<FileChain/>*/}
                         </Col>
                     </Row>
                 </Grid>

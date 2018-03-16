@@ -12,6 +12,8 @@ body {
 
 .App {
     height: 100vh;
-    background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);
+    /*background: linear-gradient(90deg, #efd5ff 0%, #515ada 100%);*/
+    background: rgb(174,195,238);
+    background: linear-gradient(276deg, rgba(174,195,238,1) 0%, rgba(68,59,129,0.2903536414565826) 22%);
     /*background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);*/
 }
