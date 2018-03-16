@@ -55,14 +55,21 @@ app.get('/api/files/:address', (req, res) => {
 app.post('/api/upload', upload.array(), function (req, res, next) {
     // req.body contains the text fields
     console.log('req', req);
-    const file = req.body.file;
+    const fileContent = req.body.file;
     const metadata = req.body.metadata;
+    const key = null; // TODO: use signing authority.
 
     // TODO [NEO]: Save the metdata for the current file to the Neo blockchain.
 
     // Save the encrypted file to the upload directory, and return success.
-    rekeyed.encryptAndSaveFile(file, metadata, () => {
-        return res.json("success");
+    rekeyed.encryptAndSaveFile(fileContent, metadata, key, function (err, results) {
+        if (err) {
+            console.error('error', err);
+            return res.status(500).json(err);
+        }
+
+        console.log('results', results);
+        return res.json(results);
     });
 });
 

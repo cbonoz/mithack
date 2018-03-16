@@ -39,7 +39,6 @@ const api = neonjs.api;
 const address = new wallet.Account(privateKey)
 
 const rekeyed = require('./rekeyed');
-
 const query = Neon.create.query()
 
 const privateNet = new rpc.Network(config);
