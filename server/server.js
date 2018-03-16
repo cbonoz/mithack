@@ -21,12 +21,11 @@ const app = express();
 const server = http.createServer(app);
 // const io = require('socket.io')(server, {origins: '*:*'});
 
+const rekeyed = require('./rekeyed');
+
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
-// TODO: use reduced cors in production.
-// const whitelist = ['https://vocalcoin.com', 'https://www.vocalcoin.com'];
-// app.use(cors({ origin: whitelist }));
 
 app.use(cors());
 
