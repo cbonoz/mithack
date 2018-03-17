@@ -8,6 +8,7 @@ const library = (function () {
     const BASE_URL = `http://localhost:${PORT}`;
 
     const axios = require('axios');
+    const sha256 = require('js-sha256').sha256;
 
     const getHeaders = () => {
         const token = localStorage.getItem("tok");
@@ -15,23 +16,6 @@ const library = (function () {
             headers: {Authorization: "Bearer " + token}
         };
     };
-
-    // TODO: add support for deleting issues (or just mark deleted).
-    // function postDeleteIssue(userId, issueId) {
-    //     const url = `${BASE_URL}/api/issue/delete`;
-    //     return axios.post(url, {
-    //         userId: userId,
-    //         issueId: issueId
-    //     }, getHeaders()).then(response => {
-    //         const data = response.data;
-    //         return data;
-    //     });
-    // }
-    //
-    // function getToggleActiveForIssueId(issueId) {
-    //     const url = `${BASE_URL}/api/issue/toggle/${issueId}`;
-    //     return axios.get(url, getHeaders()).then(response => response.data);
-    // }
 
     function createTestMetaData() {
         const d = new Date();
@@ -45,11 +29,31 @@ const library = (function () {
         };
     }
 
+    function hashFile(privateKey, data) {
+        return sha256.hmac(privateKey, data);
+    }
+
+    function createMetaData(file, fileDate, fileHash, address, key) {
+        return {
+            hash: fileHash,
+            name: file.name,
+            lastModifiedDate: fileDate,
+            sizeKb: file.sizeKb,
+            address: address,
+            key: key
+        }
+    }
+
+    // User request for granting permissions to another external user (by address) for accessing/downloading this file.
+    function postGrantAccess(file, privateKey, otherAddress) {
+        // TODO: implement.
+    }
+
     function postUploadFile(file, metadata) {
         const url = `${BASE_URL}/api/upload`;
 
         const formData = new FormData();
-        formData.append("metadata", metadata);
+        formData.append("metadata", JSON.stringify(metadata));
         formData.append("file", file);
 
         return axios.post(url, formData, {
@@ -80,8 +84,11 @@ const library = (function () {
 
     return {
         BASE_URL: BASE_URL,
+        createMetaData: createMetaData,
         createTestMetaData: createTestMetaData,
+        hashFile: hashFile,
         postUploadFile: postUploadFile,
+        postGrantAccess: postGrantAccess,
         postGetFile: postGetFile,
         getFileMetadatasForAddress: getFileMetadatasForAddress
     }

@@ -11,6 +11,7 @@ const axios = require('axios');
 const express = require('express');
 const cors = require('cors');
 const bodyParser = require('body-parser');
+const fs = require('fs');
 const http = require('http');
 // https://github.com/expressjs/multer
 const multer  = require('multer');
@@ -44,29 +45,41 @@ app.get('/api/hello', (req, res) => {
 app.get('/api/files/:address', (req, res) => {
     const address = req.params.address;
     console.log('address');
-    const files = [];
 
-    // TODO [NEO]: make request to blockchain for file metadatas associated with this address.
+    // TODO [NEO]: make request to blockchain to retrieve all file metadatas associated with this address.
+    const files = [];
 
 
     return res.json(files);
 });
 
-app.post('/api/upload', upload.array(), function (req, res, next) {
-    // req.body contains the text fields
-    console.log('req', req);
-    const fileContent = req.body.file;
-    const metadata = req.body.metadata;
-    const key = null; // TODO: use signing authority.
+/** Permissible loading a single file,
+ the value of the attribute "name" in the form of "recfile". **/
+const type = upload.any();
 
-    // TODO [NEO]: Save the metdata for the current file to the Neo blockchain.
+app.post('/api/upload', type, function (req, res, next) {
+    // req.body contains the text fields
+    const fileContent = req.body.file;
+    const metadata = JSON.parse(req.body.metadata);
+    // TODO: save these metadata fields to Neo.
+    const name = metadata.name;
+    const lastModified = metadata.lastModifiedDate;
+    const address = metadata.address;
+    const fileHash = metadata.hash;
+    const key = metadata.key; // TODO: confirm signing authority.
+    console.log(fileContent);
+
+    const fileName = address + "_" + name;
 
     // Save the encrypted file to the upload directory, and return success.
-    rekeyed.encryptAndSaveFile(fileContent, metadata, key, function (err, results) {
+    rekeyed.encryptAndSaveFile(fileContent, fileName, key, function (err, results) {
         if (err) {
             console.error('error', err);
             return res.status(500).json(err);
         }
+
+        // TODO [NEO]: Save the metdata for the current file to the Neo blockchain after saved here.
+
 
         console.log('results', results);
         return res.json(results);

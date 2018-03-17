@@ -13,6 +13,7 @@ body {
 .file-uploader {
     background: white;
     border-radius: 25px;
+    margin-bottom: 5px;
     padding: 20px;
 }
 
@@ -20,6 +21,7 @@ body {
 .file-chain {
     background: white;
     border-radius: 25px;
+    margin-bottom: 5px;
     min-height: 400px;
     padding: 20px;
 }

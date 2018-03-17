@@ -4,7 +4,7 @@
 
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Button, ControlLabel, FormControl, FormGroup, ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
+import {Button, ControlLabel, HelpBlock, FormControl, FormGroup, ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
 import FlipMove from 'react-flip-move';
 import Columns from 'react-columns';
 import PropTypes from 'prop-types';
@@ -46,7 +46,7 @@ const FileChain = createReactClass({
                 <ListGroup>
                     <ListGroupItem bsStyle="success">File Chain</ListGroupItem>
 
-                    <Columns columns="2">
+                    <Columns columns={2}>
 
                         {blockFiles && blockFiles.map((file, i) => {
                             return <FlipMove key={i}
@@ -84,10 +84,14 @@ const FileChain = createReactClass({
                             <FormControl.Feedback />
                         </FormGroup>
 
-                        <h4>Sign with your Private Key below</h4>
+                        <Button bsStyle="info">Grant Access</Button>
+                        <HelpBlock>Is this your file? Grant Access to other users by clicking here.</HelpBlock>
+
+
                     </Modal.Body>
                     <Modal.Footer>
                         <Button bsStyle="danger" onClick={this.handleClose}>Close</Button>
+                        {/*<Button bsStyle="danger" onClick={this.handleClose}>Grant Access</Button>*/}
                     </Modal.Footer>
                 </Modal>
 

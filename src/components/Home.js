@@ -81,7 +81,7 @@ const Home = createReactClass({
                     <b>No</b> Username or Password required.
                 </p>
                 <p>
-                    <Button bsStyle="primary create-button" onClick={() => self.getAccount()}>Create Account</Button>
+                    <Button bsStyle="primary" className="create-button" onClick={() => self.getAccount()}>Create Account</Button>
                 </p>
 
                 <Grid>
