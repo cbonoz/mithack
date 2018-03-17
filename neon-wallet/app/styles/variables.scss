@@ -1,0 +1,30 @@
+// backgrounds and buttons
+$main-background: #fff;
+$primary-color: #4d933b;
+$default-button: $primary-color;
+$default-button-hover: #5eb248;
+$dark-button: #236312;
+$dark-button-hover: #33881c;
+$dark-input-color: #e8f4e5;
+$bright-button: #76b466;
+$bright-button-hover: #8cd678;
+$secondary-background: #e8f4e5;
+$spacer-color: #efefef;
+$third-background: #e6f2ff;
+
+// text
+$default-text: #333;
+$button-text: #fff;
+$thin-text-color: #000;
+$error-color: #ff3e3e;
+$link-color: #3063c9;
+
+// page layout
+$page-width: 960px;
+$top-margin: 20px;
+$box-padding: 40px;
+$box-margin: 10px;
+
+// all z-index definitions should go here - make sure to leave a decent gap between them
+$z-index-tooltip: 1000;
+$z-index-notification: 1100;

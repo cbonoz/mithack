@@ -11,18 +11,18 @@ const api = neonjs.api;
 const logging = neonjs.logging;
 const CONST = neonjs.CONST;
 logging.logger.setAll('info');
-const privateKey = "9cb1830a0f1fefaa59b01cfbce6f5aa29de21e5226556649950d4ef0e7c43054";
-// const account = new wallet.Account(privateKey)
+const privateKey = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
 const account = Neon.create.account(privateKey)
 
 console.log(account.address)
-let tx = Neon.create.tx({type: 128})
-
+// console.log(Neon.create.privateKey())
 const config = {
-    name: "TestNet",
+    name: "PrivateNet",
     net: "http://testnet-api.wallet.cityofzion.io",
+    // net: "http://localhost:30333",
     extra: {
         neoscan: "https://coz.neoscan-testnet.io/api/main_net"
+        // neoscan: "http://localhost:4000/api/main_net"
     },
     script: Neon.create.script({
         scriptHash: account.scriptHash,
@@ -32,7 +32,7 @@ const config = {
     address: account.address, // ATXdMX5LkxH4rq5y8rv3iLdfvfCT8sxW8k
     privateKey: privateKey,
     publicKey: account.publicKey,
-    gas: 1,
+    gas: 0,
     intents: [{
         assetId: CONST.ASSET_ID.GAS,
         value: 0.00000001,
@@ -42,16 +42,15 @@ const config = {
 
 const privateNet = new rpc.Network(config)
 Neon.add.network(privateNet)
-neonjs.settings.httpsOnly = false
 
-api.neoscan.getBalance('TestNet', account.address)
+api.neoscan.getBalance('PrivateNet', account.address)
     .then(res => console.log(res))
     .catch(err => console.log(err))
 
-// Neon.doInvoke(config).then(res => {
-//   console.log(res)
-// })
-// .catch(err => console.log(err))
+Neon.doInvoke(config).then(res => {
+  console.log(res)
+})
+.catch(err => console.log(err))
 
 // const rekeyed = require('./rekeyed');
 
