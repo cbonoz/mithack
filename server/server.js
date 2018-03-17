@@ -72,7 +72,7 @@ app.post('/api/upload', type, function (req, res, next) {
     const fileName = address + "_" + name;
 
     // Save the encrypted file to the upload directory, and return success.
-    rekeyed.encryptAndSaveFile(bytes(fileContent), fileName, key, function (err, results) {
+    rekeyed.encryptAndSaveFile(fileContent, fileName, key, function (err, results) {
 
         if (err) {
             console.error('error', err);

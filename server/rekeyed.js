@@ -9,10 +9,10 @@ const library = (function () {
     const PYTHON_SCRIPT_FILE = "security.py";
     const PYTHON_SCRIPT_PATH = process.env['SCRIPT_PATH'] || "/Users/cbuonocore/personal/hackathon/mithack/server/";
     const PythonShell = require('python-shell');
+    // const cmd = require('node-cmd');
 
     // TODO: replace with server python installation path.
-    const PYTHON_PATH = process.env['PYTHON_PATH'] ||
-        "/Users/cbuonocore/anaconda3/bin/python3.6";// /Users/cbuonocore/personal/hackathon/mithack/server/pyUmbral";
+    const PYTHON_PATH = process.env['PYTHON_PATH'] || "/Users/cbuonocore/anaconda3/bin/python3.6";// /Users/cbuonocore/personal/hackathon/mithack/server/pyUmbral";
 
     PythonShell.defaultOptions = {
         pythonPath: PYTHON_PATH,
@@ -20,18 +20,25 @@ const library = (function () {
     };
 
     function encryptAndSaveFile(fileContent, fileName, key, cb) {
-        // send a message in JSON mode
-        // const shell = new PythonShell(PYTHON_SCRIPT_FILE, { mode: 'json '});
-        // shell.send({ command: "do_stuff", args: [fileContent, fileName, key] });
+        // const command = 'python3 security.py %s %s %s' % (fileContent, fileName, key);
+        // console.log(command);
+        // cmd.get(
+        //     command,
+        //     function(err, data, stderr){
+        //         console.log(err, data, stderr);
+        //         console.log('the current dir contains these files :\n\n',data)
+        //     }
+        // );
+
         PythonShell.run(PYTHON_SCRIPT_FILE, {
             args: ['encrypt', fileContent, fileName, key]
         }, cb)
     }
 
-    function decryptAndReturnFile(file, cb) {
+    function decryptAndReturnFile(fileName, cb) {
         // TODO: implement in security python script and invoke python with data callback.
         PythonShell.run(PYTHON_SCRIPT_FILE, {
-            args: ['decrypt', file]
+            args: ['decrypt', fileName]
         }, cb)
     }
 

@@ -51,7 +51,7 @@ const FileUploader = createReactClass({
         const d = file.lastModifiedDate;
 
         const fileDate = d.toLocaleDateString() + " " + d.toLocaleTimeString();
-        const fileHash = api.hashFile(privateKey, fileDate);
+        const fileHash = api.hashData(privateKey, fileDate);
 
         // TODO: passing pkey sec risk, used for hashing server side temporary.
         const metadata = api.createMetaData(file, fileDate, fileHash, address, privateKey);

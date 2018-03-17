@@ -7,6 +7,7 @@ from nucypher import MockNetwork
 from umbral import pre, keys, config
 
 UNDEFINED_MESSAGE = "command undefined"
+DEST_FOLDER = "uploads"
 
 # Setup pyUmbral
 config.set_default_curve()
@@ -28,7 +29,7 @@ def encrypt_and_save(file_content, filename, key):
         # Save file locally on the server.
         # TODO: can use external (nonlocal) service such as S3 for storing/retrieving encrypted files.
         bytes_written = 0
-        with open(filename, 'wb') as f:
+        with open("%s/%s" % (DEST_FOLDER, filename), 'wb') as f:
             bytes_written = f.write(ciphertext)
 
         print('wrote %d bytes to %s' % (bytes_written, filename))
@@ -50,6 +51,10 @@ def create_proxy_key(private_key):
     print(COMMAND_UNDEFINED)
 
 # Retrieve the parameters from the subprocess call
+if len(sys.argv) < 2:
+    print('Usage: security.py <command> <args...>')
+    sys.exit()
+
 argv = sys.argv[1:]
 command = argv[0]
 
