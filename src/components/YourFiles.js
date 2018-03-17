@@ -80,7 +80,7 @@ const YourFiles = createReactClass({
         return (
             <div className="centered files-page">
 
-                <h1>Your Files</h1>
+                <h1>Search Files</h1>
                 <p>Enter arbitrary address below to fetch Encoded files for that address</p>
 
                 <p>Once these files are shown below, unlock them using your original key,
