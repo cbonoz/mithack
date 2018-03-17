@@ -1,5 +1,5 @@
 // Helper utilities for the rekeyed server.
-const library = (function () {
+const library = (function() {
     const neonjs = require('@cityofzion/neon-js');
     const rpc = neonjs.rpc;
     const wallet = neonjs.wallet;
@@ -13,16 +13,40 @@ const library = (function () {
     const NETWORK = 'TestNet';
 
     const config = {
-        name: NETWORK,
-        net: "http://testnet-api.wallet.cityofzion.io",
-        address: account.address,  // This is the address which the assets come from.
+        net: NETWORK,
         privateKey: privateKey,
-        publicKey: account.publicKey,
+        address: account.address,
         gas: 0,
-    };
+    }
 
-    function saveFileMetadata(metadata, publickey, hash) {
-        // This would return a promise for saving the metadata to the neo blockchain.
+    function saveFileMetadata(metadata, address, hash) {
+        const script = Neon.create.script({
+            scriptHash: "23ba2703c53263e8d6e522dc32203339dcd8eee9",
+            operation: 'store',
+            // args: sc.ContractParam.array(param1, Neon.u.reverseHex('cef0c0fdcfe7838eff6ff104f9cdec2922297537'))
+            args: sc.ContractParam.array(address, metadata))
+        });
+
+        config.script = script;
+
+        Neon.doInvoke(config)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
+    }
+
+    function retrieveFileMetadata(address, hash) {
+        const script = Neon.create.script({
+            scriptHash: "23ba2703c53263e8d6e522dc32203339dcd8eee9",
+            operation: 'retrieve',
+            // args: sc.ContractParam.array(param1, Neon.u.reverseHex('cef0c0fdcfe7838eff6ff104f9cdec2922297537'))
+            args: sc.ContractParam.array(address)
+        });
+
+        config.script = script;
+
+        Neon.doInvoke(config)
+            .then(res => console.log(res))
+            .catch(err => console.log(err));
     }
 
     return {
