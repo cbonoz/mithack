@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@cityofzion/neon-js": "^3.4.3",
     "axios": "^0.18.0",
     "create-react-class": "^15.6.3",
     "fs": "^0.0.1-security",

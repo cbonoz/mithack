@@ -21,7 +21,7 @@ const FileDetails = createReactClass({
                     if (element instanceof Object) {
                         element = JSON.stringify(element);
                     }
-                    return <span key={j}><b>{fileKey}: </b>{element}<br/></span>
+                    return <span key={j} className="file-detail"><b>{fileKey}: </b>{element}<br/></span>
                 })}
             </div>
         );

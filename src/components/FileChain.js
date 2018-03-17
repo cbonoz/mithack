@@ -17,7 +17,7 @@ const FileChain = createReactClass({
         this.setState({
             showModal: false,
             currentMetadata: null,
-            addresss: null
+            currentKey: null,
         });
 
         // this.selectFile = this.selectFile.bind(this);
@@ -28,8 +28,13 @@ const FileChain = createReactClass({
         this.setState({currentMetadata: metadata, showModal: true});
     },
 
-    handleChange(e) {
-        this.setState({ address: e.target.value });
+    download() {
+        // TODO: implement
+        console.log('download')
+    },
+
+    handleKeyChange(e) {
+        this.setState({ currentKey: e.target.value });
     },
 
     handleClose() {
@@ -72,24 +77,25 @@ const FileChain = createReactClass({
                         <FileDetails file={metadata}/>
                         <hr/>
 
+                        <Button bsStyle="info">Grant Access</Button>
+                        <HelpBlock>Is this your file? Grant Access to other users by clicking here.</HelpBlock>
+
                         <FormGroup
                             controlId="formBasicText">
-                            <ControlLabel>Enter your address</ControlLabel>
+                            <ControlLabel>Enter your authorized key to download</ControlLabel>
                             <FormControl
                                 type="text"
-                                value={this.state.address}
-                                placeholder="Enter text"
-                                onChange={this.handleChange}
+                                value={this.state.privateKey}
+                                placeholder="Enter key"
+                                onChange={this.handleKeyChange}
                             />
                             <FormControl.Feedback />
                         </FormGroup>
 
-                        <Button bsStyle="info">Grant Access</Button>
-                        <HelpBlock>Is this your file? Grant Access to other users by clicking here.</HelpBlock>
-
 
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button bsStyle="info" onClick={this.download}>Download</Button>
                         <Button bsStyle="danger" onClick={this.handleClose}>Close</Button>
                         {/*<Button bsStyle="danger" onClick={this.handleClose}>Grant Access</Button>*/}
                     </Modal.Footer>

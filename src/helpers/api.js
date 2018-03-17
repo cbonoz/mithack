@@ -9,6 +9,11 @@ const library = (function () {
 
     const axios = require('axios');
     const sha256 = require('js-sha256').sha256;
+    const neonjs = require('@cityofzion/neon-js');
+    const Neon = neonjs.default;
+
+    const TEST_DEMO_ADDRESS = "AK2nJJpJr6o664CWJKi1QRXjqeic2zRp8y";
+    const TEST_FILE_NAME = "java.jpg";
 
     const getHeaders = () => {
         const token = localStorage.getItem("tok");
@@ -17,20 +22,36 @@ const library = (function () {
         };
     };
 
-    function createTestMetaData() {
-        const d = new Date();
-        const now = d.toLocaleDateString() + " " + d.toLocaleTimeString();
-        return {
-            // name: "test.txt",
-            lastModifiedDate: now,
-            sizeKb: parseInt(Math.random() * 10000) + "kb",
-            owner: "XXXXXXX", // address
-            hash: "XXXXX"
-        };
+    function hashData(key, data) {
+        return sha256.hmac(key, data);
     }
 
-    function hashFile(privateKey, data) {
-        return sha256.hmac(privateKey, data);
+    function createTestMetaData(name, address) {
+        const d = new Date();
+        const now = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+
+        const privateKey = Neon.create.privateKey();
+        const account = Neon.create.account(privateKey);
+        let publicKey = account.publicKey;
+
+        if (!address) {
+            address = account.address;
+        }
+
+        if (!name) {
+            name = TEST_FILE_NAME;
+        }
+
+        return {
+            name: name,
+            timesViewed: 1,
+            lastAccessed: address,
+            lastModifiedDate: now,
+            sizeKb: parseInt(Math.random() * 10000) + "kb",
+            address: address,
+            hash: hashData(publicKey, now),
+            key: publicKey
+        };
     }
 
     function createMetaData(file, fileDate, fileHash, address, key) {
@@ -84,9 +105,11 @@ const library = (function () {
 
     return {
         BASE_URL: BASE_URL,
+        TEST_DEMO_ADDRESS: TEST_DEMO_ADDRESS,
+        TEST_FILE_NAME: TEST_FILE_NAME,
         createMetaData: createMetaData,
         createTestMetaData: createTestMetaData,
-        hashFile: hashFile,
+        hashData: hashData,
         postUploadFile: postUploadFile,
         postGrantAccess: postGrantAccess,
         postGetFile: postGetFile,
