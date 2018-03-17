@@ -19,7 +19,6 @@ const library = (function () {
         scriptPath: PYTHON_SCRIPT_PATH
     };
 
-
     function encryptAndSaveFile(fileContent, fileName, key, cb) {
         // send a message in JSON mode
         // const shell = new PythonShell(PYTHON_SCRIPT_FILE, { mode: 'json '});
