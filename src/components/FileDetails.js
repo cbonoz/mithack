@@ -13,9 +13,10 @@ const FileDetails = createReactClass({
         const fileKeys = Object.keys(file);
         const index = fileKeys.indexOf("hash");
         if (index !== -1) fileKeys.splice(index, 1);
+
         return (
             <div>
-                <h4><b>File Hash: </b>{file["hash"]}</h4>
+                <h4><b>File Hash: </b><br/>{file["hash"]}</h4>
                 {fileKeys.map((fileKey, j) => {
                     let element = file[fileKey];
                     if (element instanceof Object) {

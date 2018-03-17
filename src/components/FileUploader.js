@@ -28,8 +28,6 @@ const FileUploader = createReactClass({
             fieldName: null
         });
 
-        // this.handleClose = this.handleClose.bind(this);
-        // this.handleProcessing = this.handleProcessing.bind(this)
     },
 
 
@@ -54,7 +52,7 @@ const FileUploader = createReactClass({
         const fileHash = api.hashData(privateKey, fileDate);
 
         // TODO: passing pkey sec risk, used for hashing server side temporary.
-        const metadata = api.createMetaData(file, fileDate, fileHash, address, privateKey);
+        const metadata = api.createMetaData(file, fileDate, fileHash, address, privateKey, 1);
 
         api.postUploadFile(fileContent, metadata).then((res) => {
             console.log('success', res);
@@ -149,8 +147,8 @@ const FileUploader = createReactClass({
                         <Modal.Title>Hey, We Got Your File!</Modal.Title>
                     </Modal.Header>
                     <Modal.Body className="modal-body">
-                        {self.state.metadata &&
-                        <p>Are you ready to submit file: <b>{self.state.metadata['name']}</b>?</p>}
+                        {self.state.currentFile &&
+                        <p>Are you ready to submit file: <b>{self.state.currentFile['name']}</b>?</p>}
                         <hr/>
 
                         <FormGroup controlId="formPrivateKey">

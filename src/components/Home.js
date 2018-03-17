@@ -30,7 +30,7 @@ const Home = createReactClass({
         this.getAccount = this.getAccount.bind(null, this);
 
         // this.getBlockFiles();
-        // this.demoBlocks();
+        this.demoBlocks();
     },
 
     getAccount() {
@@ -52,9 +52,9 @@ const Home = createReactClass({
 
     generateNextBlock() {
         const self = this;
-        // console.log(JSON.stringify(self.state));
         const block = api.createTestMetaData();
-        let nextList = [block].concat(this.state.blockFiles);
+        let nextList = [block].concat(self.state.blockFiles);
+
         if (nextList.length > MAX_BLOCKS) {
             nextList = nextList.splice(0, MAX_BLOCKS);
         }
@@ -72,7 +72,7 @@ const Home = createReactClass({
         return (
             <div className="home-page">
                 {/*TODO: uncomment*/}
-                {/*<img src={rekeyedLogo} className="centered header-logo"/>*/}
+                <img src={rekeyedLogo} className="centered header-logo"/>
 
                 <p className="header-text-h2">
                     Document sharing and permission control for <b>Everyone.</b>

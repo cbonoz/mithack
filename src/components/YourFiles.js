@@ -15,10 +15,13 @@ const YourFiles = createReactClass({
         this.setState({
             address: "",
             files: null,
-            loading: false,
+            targetPublicKey: "",
+            ownerPrivateKey: "",
             currentAddress: "",
             currentKey: "",
+            accessGranted: false,
             showModal: false,
+            loading: false,
         });
     },
 
@@ -51,17 +54,35 @@ const YourFiles = createReactClass({
         this.setState({files: result, loading: false, currentAddress: address});
     },
 
+    grantAccess() {
+        const targetPublicKey = this.state.targetPublicKey;
+        const ownerPrivateKey = this.state.ownerPrivateKey;
+        const file = this.state.file;
+        api.postGrantAccess(file, targetPublicKey, ownerPrivateKey).then((res) => {
+            // TODO: convert to user feedback.
+            console.log('result', res);
+        }).catch((err) => {
+            console.error('error granting access', err);
+        });
+
+        this.setState({accessGranted: true});
+    },
+
     download() {
         // TODO: implement
         console.log('download')
     },
 
-    handleAddressChange(e) {
-        this.setState({ address: e.target.value });
+    handlePrivateKeyChange(e) {
+        this.setState({ ownerPrivateKey: e.target.value });
     },
 
-    handleKeyChange(e) {
-        this.setState({ currentKey: e.target.value });
+    handlePublicKeyChange(e) {
+        this.setState({ targetPublicKey: e.target.value });
+    },
+
+    handleAddressChange(e) {
+        this.setState({ address: e.target.value });
     },
 
     getValidationState() {
@@ -80,7 +101,8 @@ const YourFiles = createReactClass({
         return (
             <div className="centered files-page">
 
-                <h1>Your Files</h1>
+                <h1>Search Files</h1>
+
                 <p>Enter arbitrary address below to fetch Encoded files for that address</p>
 
                 <p>Once these files are shown below, unlock them using your original key,
@@ -121,23 +143,36 @@ const YourFiles = createReactClass({
                         <FileDetails file={metadata}/>
                         <hr/>
 
-                        <Button bsStyle="info">Grant Access</Button>
-                        <HelpBlock>Is this your file? Grant Access to other users by clicking here.</HelpBlock>
-
                         <FormGroup
                             controlId="formBasicText">
                             <ControlLabel>Enter your authorized key to download</ControlLabel>
                             <FormControl
                                 type="text"
-                                value={this.state.privateKey}
-                                placeholder="Enter key"
-                                onChange={this.handleKeyChange}
+                                value={this.state.ownerPrivateKey}
+                                placeholder="Enter your private key"
+                                onChange={this.handlePrivateKeyChange}
                             />
+
+                            <hr/>
+
+                            <ControlLabel>Enter recipient Public Key for granting access</ControlLabel>
+                            <FormControl
+                                type="text"
+                                value={this.state.targetPublicKey}
+                                placeholder="Enter recipient public key"
+                                onChange={this.handlePublicKeyChange}
+                            />
+                            <HelpBlock>Is this your file? Grant Access to other users by clicking there.</HelpBlock>
                             <FormControl.Feedback />
                         </FormGroup>
 
+                        {self.state.accessGranted && <p className="access-text">
+                            Access Granted to {api.capLength(self.state.targetPublicKey)}!
+                        </p>}
+
                     </Modal.Body>
                     <Modal.Footer>
+                        <Button bsStyle="success" onClick={() => this.grantAccess(metadata)}>Grant Access</Button>
                         <Button bsStyle="info" onClick={this.download}>Download</Button>
                         <Button bsStyle="danger" onClick={this.handleClose}>Close</Button>
                         {/*<Button bsStyle="danger" onClick={this.handleClose}>Grant Access</Button>*/}

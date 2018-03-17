@@ -26,6 +26,24 @@ const library = (function () {
         return sha256.hmac(key, data);
     }
 
+    function capLength(s, length) {
+        if (!s) {
+            return s;
+        }
+
+        if (!length) {
+            length = 25;
+        }
+
+        const maxLen = Math.min(s.length, length);
+        if (s.length > length) {
+            // console.log('s', s);
+            return s.substr(0, maxLen) + "...";
+        }
+        return s
+
+    }
+
     function createTestMetaData(name, address) {
         const d = new Date();
         const now = d.toLocaleDateString() + " " + d.toLocaleTimeString();
@@ -45,29 +63,39 @@ const library = (function () {
         return {
             name: name,
             timesViewed: 1,
-            lastAccessed: address,
+            lastAccessed: now,
             lastModifiedDate: now,
             sizeKb: parseInt(Math.random() * 10000) + "kb",
-            address: address,
-            hash: hashData(publicKey, now),
-            key: publicKey
+            address: capLength(address),
+            hash: capLength(hashData(publicKey, now)),
+            key: capLength(publicKey)
         };
     }
 
-    function createMetaData(file, fileDate, fileHash, address, key) {
+    function createMetaData(file, fileDate, fileHash, address, key, timesViewed) {
         return {
-            hash: fileHash,
+            hash: capLength(fileHash),
             name: file.name,
+            timesViewed: timesViewed,
+            lastAccessed: fileDate,
             lastModifiedDate: fileDate,
             sizeKb: file.sizeKb,
-            address: address,
-            key: key
+            address: capLength(address),
+            key: capLength(key)
         }
     }
 
     // User request for granting permissions to another external user (by address) for accessing/downloading this file.
-    function postGrantAccess(file, privateKey, otherAddress) {
-        // TODO: implement.
+    function postGrantAccess(fileName, targetPublicKey, ownerPrivateKey) {
+        const url = `${BASE_URL}/api/file`;
+        return axios.post(url, {
+            fileName: fileName,
+            targetPublicKey: targetPublicKey,
+            ownerPrivateKey: ownerPrivateKey
+        }).then(response => {
+            const data = response.data;
+            return data;
+        });
     }
 
     function postUploadFile(file, metadata) {
@@ -107,6 +135,7 @@ const library = (function () {
         BASE_URL: BASE_URL,
         TEST_DEMO_ADDRESS: TEST_DEMO_ADDRESS,
         TEST_FILE_NAME: TEST_FILE_NAME,
+        capLength: capLength,
         createMetaData: createMetaData,
         createTestMetaData: createTestMetaData,
         hashData: hashData,
