@@ -21,6 +21,4 @@ Store an encrypted file on IPFS, and then share it using NuCypher permission sdk
 ### Useful Links
 * https://docs.google.com/presentation/d/1ax_AnmSNgKm4zu60nKgPjejcsxoQHWU8AQvG60oy7wQ/edit#slide=id.g354416a350_0_4
 
-
-
-
+031a6c6fbbdf02ca351745fa86b9ba5a9452d785ac4f7fc2b7548ca2a46c4fcf4a

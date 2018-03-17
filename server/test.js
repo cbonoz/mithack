@@ -18,7 +18,7 @@ const CONST = neonjs.CONST;
 const privateKey = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
 const account = Neon.create.account(privateKey)
 
-console.log(account.address)
+console.log(account.publicKey)
 
 const param1 = sc.ContractParam.byteArray(account.address, 'address')
 
