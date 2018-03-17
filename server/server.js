@@ -57,6 +57,33 @@ app.get('/api/files/:address', (req, res) => {
  the value of the attribute "name" in the form of "recfile". **/
 const type = upload.any();
 
+
+app.post('/api/authorize', type, function (req, res, next) {
+    // req.body contains the text fields
+    const privateKey = req.body.privateKey;
+    const publicKey = req.body.publicKey;
+    const targetAddress = req.body.address;
+
+
+    const fileName = address + "_" + name;
+
+    // Save the encrypted file to the upload directory, and return success.
+    rekeyed.encryptAndSaveFile(fileContent, fileName, key, function (err, results) {
+
+        if (err) {
+            console.error('error', err);
+            return res.status(500).json(err);
+        }
+
+        // TODO [NEO]: Save the metdata for the current file to the Neo blockchain after saved here.
+
+
+        console.log('results', results);
+        return res.json(results);
+    });
+});
+
+
 app.post('/api/upload', type, function (req, res, next) {
     // req.body contains the text fields
     const fileContent = req.body.file;

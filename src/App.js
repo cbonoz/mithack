@@ -38,7 +38,7 @@ class App extends Component {
                     <Navbar.Collapse>
                         <Nav pullRight>
                             <NavItem eventKey={1} href="/">
-                                Create    d   an Account
+                                Create an Account
                             </NavItem>
                             <NavItem eventKey={2} href="/files">
                                 Search Files

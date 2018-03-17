@@ -56,16 +56,14 @@ const FileChain = createReactClass({
                         {blockFiles && blockFiles.map((file, i) => {
                             return <FlipMove key={i}
                                              enterAnimation="accordionHorizontal" leaveAnimation="accordionHorizontal"
-                                             duration={500} appearAnimation="fade-in">
+                                             duration={500} appearAnimation="accordionVertical">
                                 <div className="file-block" onClick={() => self.selectFile(file)}>
                                     <FileDetails file={file}/>
 
                                 </div>
                             </FlipMove>
                         })}
-
                     </Columns>
-
                 </ListGroup>
 
                 {/* Selected File metadata info modal */}
@@ -80,8 +78,8 @@ const FileChain = createReactClass({
                         <Button bsStyle="info">Grant Access</Button>
                         <HelpBlock>Is this your file? Grant Access to other users by clicking here.</HelpBlock>
 
-                        <FormGroup
-                            controlId="formBasicText">
+                        <FormGroup controlId="formBasicText">
+
                             <ControlLabel>Enter your authorized key to download</ControlLabel>
                             <FormControl
                                 type="text"
@@ -89,9 +87,9 @@ const FileChain = createReactClass({
                                 placeholder="Enter key"
                                 onChange={this.handleKeyChange}
                             />
+
                             <FormControl.Feedback />
                         </FormGroup>
-
 
                     </Modal.Body>
                     <Modal.Footer>

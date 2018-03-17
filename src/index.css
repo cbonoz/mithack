@@ -106,11 +106,19 @@ body {
 }
 
 .file-block {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
     padding: 10px;
     margin: 10px;
     text-align: start;
     background: #e6eeee;
     cursor: pointer;
+}
+
+.access-text {
+    padding: 20px;
+    color: green;
 }
 
 .file-block:hover {
