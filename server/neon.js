@@ -24,7 +24,7 @@ const library = (function() {
             scriptHash: "23ba2703c53263e8d6e522dc32203339dcd8eee9",
             operation: 'store',
             // args: sc.ContractParam.array(param1, Neon.u.reverseHex('cef0c0fdcfe7838eff6ff104f9cdec2922297537'))
-            args: sc.ContractParam.array(address, metadata))
+            args: sc.ContractParam.array(address, metadata)
         });
 
         config.script = script;
