@@ -35,12 +35,12 @@ const library = (function() {
     }
 
     function retrieveFileMetadata(address, hash) {
-        const script = Neon.create.script({
-            scriptHash: "23ba2703c53263e8d6e522dc32203339dcd8eee9",
-            operation: 'retrieve',
-            // args: sc.ContractParam.array(param1, Neon.u.reverseHex('cef0c0fdcfe7838eff6ff104f9cdec2922297537'))
-            args: sc.ContractParam.array(address + "_" + hash);
-        });
+        // const script = Neon.create.script({
+        //     scriptHash: "23ba2703c53263e8d6e522dc32203339dcd8eee9",
+        //     operation: 'retrieve',
+        //     // args: sc.ContractParam.array(param1, Neon.u.reverseHex('cef0c0fdcfe7838eff6ff104f9cdec2922297537'))
+        //     args: sc.ContractParam.array(address + "_" + hash);
+        // }
 
         config.script = script;
 
