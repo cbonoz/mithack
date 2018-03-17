@@ -2,8 +2,11 @@
  * Created by cbuonocore on 3/16/18.
  */
 
+// transaction id i think: 0xd65d38e5fddf7748a4d80b79adb1c32e1371c7f4
+
 
 const neonjs = require('@cityofzion/neon-js');
+const rekeyed = require('./rekeyed');
 const rpc = neonjs.rpc;
 const wallet = neonjs.wallet;
 const Neon = neonjs.default;
@@ -15,14 +18,14 @@ const privateKey = "KxDgvEKzgSBPPfuVfw67oPQBSjidEiqTHURKSDL1R7yGaGYAeYnr";
 const account = Neon.create.account(privateKey)
 
 console.log(account.address)
-// console.log(Neon.create.privateKey())
-const config = {
+
+    const config = {
     name: "PrivateNet",
-    net: "http://testnet-api.wallet.cityofzion.io",
-    // net: "http://localhost:30333",
+    // net: "http://testnet-api.wallet.cityofzion.io",
+    net: "http://localhost:5000",
     extra: {
-        neoscan: "https://coz.neoscan-testnet.io/api/main_net"
-        // neoscan: "http://localhost:4000/api/main_net"
+        // neoscan: "https://coz.neoscan-testnet.io/api/main_net"
+        neoscan: "http://localhost:4000/api/main_net"
     },
     script: Neon.create.script({
         scriptHash: account.scriptHash,
@@ -33,43 +36,30 @@ const config = {
     privateKey: privateKey,
     publicKey: account.publicKey,
     gas: 0,
-    intents: [{
-        assetId: CONST.ASSET_ID.GAS,
-        value: 0.00000001,
-        scriptHash: Neon.get.scriptHashFromAddress(account.address)
-    }]
+    // intents: [{
+    //     assetId: CONST.ASSET_ID.GAS,
+    //     value: 0.00000001,
+    //     scriptHash: Neon.get.scriptHashFromAddress(account.address)
+    // }]
 };
 
 const privateNet = new rpc.Network(config)
 Neon.add.network(privateNet)
 
-api.neoscan.getBalance('PrivateNet', account.address)
-    .then(res => console.log(res))
-    .catch(err => console.log(err))
+// api.neoscan.getBalance('PrivateNet', account.address)
+//     .then(res => console.log(res))
+//     .catch(err => console.log(err))
 
-Neon.doInvoke(config).then(res => {
-  console.log(res)
-})
-.catch(err => console.log(err))
-
-// const rekeyed = require('./rekeyed');
-
-// const query = Neon.create.query()
-
-// const privateNet = new rpc.Network(config);
-// Neon.add.network(privateNet)
-
-// console.log(address)
 // Neon.doInvoke(config).then(res => {
 //   console.log(res)
 // })
-// .catch(error => console.log(error))
-
-// api.neoscan.getBalance('PrivateNet', address)
+// .catch(err => console.log(err))
+//
+// Neon.get.balance('PrivateNet', account.address)
 // .then(res => console.log(res))
-// .catch(error => console.log(error))
+// .catch(res => console.log(res))
 
-// console.log(privateNet);
+// const query = Neon.create.query()
 
 // const props = {
 //   scriptHash: '5b7074e873973a6ed3708862f219a6fbf4d1c411', // Scripthash for the contract
