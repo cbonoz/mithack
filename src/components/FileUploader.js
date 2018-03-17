@@ -38,8 +38,7 @@ const FileUploader = createReactClass({
 
     // handle file upload.
     handleProcessing(fieldName, currentFile, metadata, load, error, progress, abort) {
-        console.log(fieldName, currentFile);//, metadata, load, error, progress, abort);
-        console.log(JSON.stringify(metadata));
+        // console.log(JSON.stringify(load));
         this.setState({showModal: true, fieldName: fieldName, currentFile: currentFile, metadata: metadata});
         // Send the file binary.
     },
@@ -57,7 +56,7 @@ const FileUploader = createReactClass({
                         <FilePond allowMultiple={true}
                                   maxFiles={3}
                                   ref={ref => this.pond = ref}
-                                  server={{process: this.handleProcessing.bind(this)}}
+                                  server={{process: this.handleProcessing}}
                                   oninit={() => this.handleInit()}>
 
                             {/*// Set current files using the <File/> component*/}
@@ -74,8 +73,8 @@ const FileUploader = createReactClass({
                     <Modal.Header closeButton>
                         <Modal.Title>Hey, We Got Your File!</Modal.Title>
                     </Modal.Header>
-                    <Modal.Body>
-                        {self.state.metadata && <p>Are you ready to submit: {self.state.metadata['name']}?</p>}
+                    <Modal.Body className="modal-body">
+                        {self.state.metadata && <p>Are you ready to submit file: <b>{self.state.metadata['name']}</b>?</p>}
                         <hr/>
 
                         <h4>Sign with your Private Key below</h4>

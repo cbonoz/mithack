@@ -4,8 +4,11 @@
 
 import React from 'react';
 import createReactClass from 'create-react-class';
-import {Button, ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
+import {Button, ControlLabel, FormControl, FormGroup, ListGroup, ListGroupItem, Modal} from 'react-bootstrap';
+import FlipMove from 'react-flip-move';
+import Columns from 'react-columns';
 import PropTypes from 'prop-types';
+import FileDetails from "./FileDetails";
 
 const FileChain = createReactClass({
 
@@ -13,15 +16,20 @@ const FileChain = createReactClass({
     componentWillMount() {
         this.setState({
             showModal: false,
-            currentMetadata: null
+            currentMetadata: null,
+            addresss: null
         });
 
-        this.selectFile = this.selectFile.bind(this);
+        // this.selectFile = this.selectFile.bind(this);
     },
 
     selectFile(metadata) {
         console.log('selectFile', JSON.stringify(metadata));
-        this.setState({metadata: metadata, showModal: true});
+        this.setState({currentMetadata: metadata, showModal: true});
+    },
+
+    handleChange(e) {
+        this.setState({ address: e.target.value });
     },
 
     handleClose() {
@@ -31,33 +39,50 @@ const FileChain = createReactClass({
     render() {
         const self = this;
         const metadata = self.state.currentMetadata;
+        const blockFiles = self.props.blockFiles;
 
         return (
             <div className="file-chain">
                 <ListGroup>
-                    <ListGroupItem bsStyle="success">Public File Chain</ListGroupItem>
-                    <ListGroupItem>
+                    <ListGroupItem bsStyle="success">File Chain</ListGroupItem>
 
-                        {self.props.blockFiles.map((file) => {
-                            return <div className="file-block" onClick={() => self.selectFile(file)}>
-                                {Object.keys(file).map((key) => {
-                                    return <li><b>{key}:</b>{file[key]}</li>
-                                })}
-                            </div>
+                    <Columns columns="2">
+
+                        {blockFiles && blockFiles.map((file, i) => {
+                            return <FlipMove key={i}
+                                             enterAnimation="accordionHorizontal" leaveAnimation="accordionHorizontal"
+                                             duration={500} appearAnimation="fade-in">
+                                <div className="file-block" onClick={() => self.selectFile(file)}>
+                                    <FileDetails file={file}/>
+
+                                </div>
+                            </FlipMove>
                         })}
 
-                    </ListGroupItem>
+                    </Columns>
 
                 </ListGroup>
 
-                {/*Selected File metadata info modal*/}
+                {/* Selected File metadata info modal */}
                 <Modal show={self.state.showModal} onHide={this.handleClose}>
                     <Modal.Header closeButton>
-                        <Modal.Title>File</Modal.Title>
+                        <Modal.Title>Blockchain Metadata File</Modal.Title>
                     </Modal.Header>
                     < Modal.Body >
-                        < p > {metadata && JSON.stringify(metadata)}</p>
+                        <FileDetails file={metadata}/>
                         <hr/>
+
+                        <FormGroup
+                            controlId="formBasicText">
+                            <ControlLabel>Enter your address</ControlLabel>
+                            <FormControl
+                                type="text"
+                                value={this.state.address}
+                                placeholder="Enter text"
+                                onChange={this.handleChange}
+                            />
+                            <FormControl.Feedback />
+                        </FormGroup>
 
                         <h4>Sign with your Private Key below</h4>
                     </Modal.Body>

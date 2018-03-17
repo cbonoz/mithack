@@ -34,7 +34,15 @@ const library = (function () {
     // }
 
     function createTestMetaData() {
-
+        const d = new Date();
+        const now = d.toLocaleDateString() + " " + d.toLocaleTimeString();
+        return {
+            // name: "test.txt",
+            lastModifiedDate: now,
+            sizeKb: parseInt(Math.random() * 10000) + "kb",
+            owner: "XXXXXXX", // address
+            hash: "XXXXX"
+        };
     }
 
     function postUploadFile(file, metadata) {
