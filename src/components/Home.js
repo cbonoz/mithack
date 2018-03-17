@@ -30,7 +30,7 @@ const Home = createReactClass({
         this.getAccount = this.getAccount.bind(null, this);
 
         // this.getBlockFiles();
-        this.demoBlocks();
+        // this.demoBlocks();
     },
 
     getAccount() {
