@@ -14,17 +14,48 @@ body {
     background: white;
     border-radius: 25px;
     padding: 20px;
-    margin: 25px;
 }
+
 /*Col 2*/
 .file-chain {
     background: white;
     border-radius: 25px;
-    margin: 25px;
     min-height: 400px;
     padding: 20px;
 }
 
+.create-button {
+    margin: 15px;
+}
+
+.form-control {
+    padding: 15px;
+    width: 500px;
+    max-width: 90%;
+    text-align: center;
+    margin: 0 auto;
+    margin-top: 20px;
+}
+
+.search-button {
+    padding-left: 15px;
+    padding-right: 15px;
+    margin: 20px;
+}
+
+.about-section {
+    max-width: 800px !important;
+    line-height: 28px;
+    font-size: 20px;
+}
+
+.about-page .files-page{
+    padding: 20px;
+}
+
+.about-page h1 {
+    padding: 20px;
+}
 
 .header-text-h2 {
     font-size: 20px;
@@ -65,7 +96,14 @@ body {
 .file-block {
     padding: 10px;
     margin: 10px;
-    background: #eee;
+    text-align: start;
+    background: #e6eeee;
+    cursor: pointer;
+}
+
+.file-block:hover {
+    background: #cde4ee;
+
 }
 
 .neo-logo {
@@ -85,6 +123,10 @@ body {
     margin-bottom: 20px;
     border-bottom: 1px solid black;
     width: 350px;
+}
+
+.modal-body {
+    font-size: 14px;
 }
 
 .footer {

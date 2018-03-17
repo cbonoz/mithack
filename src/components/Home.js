@@ -16,17 +16,18 @@ import rekeyedLogo from '../assets/rekeyed_cropped.png';
 import api from '../helpers/api';
 import PropTypes from 'prop-types';
 
+const MAX_BLOCKS = 15;
+
 const Home = createReactClass({
 
     componentWillMount() {
         console.log(api.BASE_URL);
         this.setState({
             files: [],
-            blockFiles: [],
-            timeOutScript: null,
+            blockFiles: []
         });
 
-        this.getAccount = this.getAccount.bind(this);
+        this.getAccount = this.getAccount.bind(null, this);
 
         // this.getBlockFiles();
         this.demoBlocks();
@@ -39,22 +40,27 @@ const Home = createReactClass({
     // Demo file block generation.
     demoBlocks() {
         const self = this;
-        const myFunction = function() {
+
+        function myFunction() {
             self.generateNextBlock();
             const rand = Math.round(Math.random() * 2000) + 1000; // 1000-3000ms interval.
             setTimeout(myFunction, rand);
-        };
+        }
 
-        myFunction();
+        setTimeout(myFunction, 1000);
     },
 
     generateNextBlock() {
         const self = this;
+        // console.log(JSON.stringify(self.state));
         const block = api.createTestMetaData();
+        let nextList = [block].concat(this.state.blockFiles);
+        if (nextList.length > MAX_BLOCKS) {
+            nextList = nextList.splice(0, MAX_BLOCKS);
+        }
 
-        const nextBlocks = self.state.blockFiles;
-        nextBlocks.push(block);
-        self.setState({blockFiles: nextBlocks});
+        console.log(nextList);
+        this.setState({blockFiles: nextList})
     },
 
     getBlockFiles() {
@@ -75,15 +81,16 @@ const Home = createReactClass({
                     <b>No</b> Username or Password required.
                 </p>
                 <p>
-                    <Button bsStyle="primary" onClick={() => self.getAccount()}>Create Account</Button>
+                    <Button bsStyle="primary create-button" onClick={() => self.getAccount()}>Create Account</Button>
                 </p>
 
                 <Grid>
                     <Row className="show-grid">
-                        <Col xs={12} md={6}>
+                        <Col xs={12} md={5}>
                             <FileUploader/>
                         </Col>
-                        <Col xs={12} md={6}>
+
+                        <Col xs={12} md={7}>
                             <FileChain blockFiles={self.state.blockFiles}/>
                         </Col>
                     </Row>
